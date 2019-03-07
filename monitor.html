@@ -1,0 +1,106 @@
+<!doctype HTML>
+<html>
+	<head>
+		<title>Cabrón!</title>
+		<script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<link href="css/stylesheet.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+	</head>
+	<body class="cabron">
+		<header class="monitor-title">
+			<h1 id="game-title" class="hidden">
+				<span>C</span>
+				<span>a</span>
+				<span>b</span>
+				<span>r</span>
+				<span class="accent">o</span>
+				<span>n</span>
+				<span>&nbsp;</span>
+				<span>M</span>
+				<span>o</span>
+				<span>n</span>
+				<span>i</span>
+				<span>t</span>
+				<span class="accent">o</span>
+				<span>r</span>
+			</h1>
+		</header>
+		<section id="monitor-table">
+
+			<div class="table-col">
+				<h2>ROOMS</h2>
+				<table id="table-rooms">
+					<thead>
+						<th>NAME</th>
+						<th>PLAYERS</th>
+						<th>NOTES</th>
+					</thead>
+					<tbody></tbody>
+					<tfoot>
+						<tr id="table-rooms-template-row">
+							<td class="r-name"></td>
+							<td class="r-players"></td>
+							<td class="r-notes"></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+
+		</section>
+		<footer></footer>
+		<script type="text/javascript">
+			jQuery(function() {
+				setTimeout(function() {
+					jQuery('#game-title').fadeIn(1500);
+				}, 1000);
+
+				var tableRooms = jQuery('#table-rooms');
+				var tableRoomsBody = tableRooms.find('tbody');
+				var trTemplate = tableRooms.find('tfoot tr');
+
+				var lastUpdate = null;
+
+				var update = function() {
+					jQuery.get('/monitoring').then(
+						function(data) {
+							var thUpdate = JSON.stringify(data);
+							if (thUpdate == lastUpdate) {
+								return;
+							}
+
+							lastUpdate = thUpdate;
+
+							tableRoomsBody.children().remove();
+
+							if (data.rooms.length == 0) {
+								var tr = trTemplate.clone().attr('id', '');
+
+								tr.children('td').remove();
+								tr.append('<td colspan="3" style="text-align:center;">NO ROOMS CREATED</td>');
+
+								tableRoomsBody.append(tr);
+
+								return;
+							}
+
+							for (var i in data.rooms) {
+								var room = data.rooms[i];
+
+								var tr = trTemplate.clone().attr('id', '');
+
+								tr.find('.r-name').html(room.name);
+								tr.find('.r-players').html(room.players);
+								tr.find('.r-notes').html(room.notes);
+
+								tableRoomsBody.append(tr);
+							}
+
+						}
+					);
+				};
+
+				update();
+				setInterval(update, 1000);
+			});
+		</script>
+	</body>

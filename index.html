@@ -1,0 +1,117 @@
+<!doctype HTML>
+<html>
+	<head>
+		<title>Cabrón!</title>
+		<script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+		<link href="css/stylesheet.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/stageObjects.js"></script>
+		<script type="text/javascript" src="js/audio.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+		<script type="text/javascript" src="js/hud.js"></script>
+		<script type="text/javascript" src="js/messages.js"></script>
+		<script type="text/javascript" src="js/welcome.js"></script>
+		<script type="text/javascript" src="js/waiting.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/sceneManager.js"></script>
+	</head>
+	<body class="cabron">
+		<header>
+			<h1 id="game-title" class="hidden">
+				<span>C</span>
+				<span>a</span>
+				<span>b</span>
+				<span>r</span>
+				<span class="accent">o</span>
+				<span>n</span>
+			</h1>
+			<button id="mute-btn"><span>&nbsp;</span></button>
+		</header>
+		<section id="wrapper">
+			<div id="hud" data-playernum="2"></div>
+
+			<ul id="waiting-messages"></ul>
+
+			<div id="welcome" class="hidden">
+				<form id="room-form">
+					<fieldset>
+						<label>
+							USERNAME: <input id="username" name="username" type="text" placeholder="Insert Username" value=""/>
+						</label>
+						<label>
+							ROOM NAME: <input id="room-code" name="room-code" type="text" placeholder="Insert Room Code" value=""/>
+						</label>
+						<div class="buttonset">
+							<button id="join-room" type="submit" disabled="disabled">JOIN</button>
+							<button id="create-room" type="submit" disabled="disabled">CREATE</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
+			<div id="waiting" class="hidden">
+				<form id="start-form">
+					<fieldset>
+						<h3 id="room-name"></h3>
+						<div class="buttonset three-buttons">
+							<button id="start-game" type="submit" disabled="disabled">START</button>
+							<button id="add-ai" type="submit">ADD AI</button>
+							<button id="cancel" type="cancel">CANCEL</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
+			<div id="game" class="hidden">
+				<div class="board-container">
+					<div id="board-wrapper">
+						<h3 id="board-msg"></h3>
+						<table id="board">
+							<thead>
+								<tr></tr>
+							</thead>
+							<tbody></tbody>
+							<tfoot>
+								<tr></tr>
+							</tfoot>
+						</table>
+						<form id="play-again-form" class="hidden">
+							<fieldset>
+								<div class="buttonset">
+									<button id="play-again" type="submit">PLAY AGAIN</button>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<footer>
+			<div id="info">
+				<div id="info-text"></div>
+			</div>
+		</footer>
+		<!-- templates -->
+		<div id="templates" class="hidden">
+			<div id="player-hud-template" class="player-hud" data-player="" data-turbos="3" data-wins="0">
+				<div>
+					<div class="avatar"></div>
+					<h2 class="name"></h2>
+					<ol class="turbos">
+						<li data-turbo="0"></li>
+						<li data-turbo="1"></li>
+						<li data-turbo="2"></li>
+					</ol>
+					<ol class="wins">
+						<li data-win="0"></li>
+						<li data-win="1"></li>
+						<li data-win="2"></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

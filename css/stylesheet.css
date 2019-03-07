@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Jet Bradley';
+    src: url('/assets/fonts/Jet-Bradley.woff2') format('woff2'),
+        url('/assets/fonts/Jet-Bradley.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
